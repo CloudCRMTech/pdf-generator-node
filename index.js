@@ -63,7 +63,7 @@ app.post("/", async (req, res) => {
         return res.status(500).json({error: "Servidor nativo caui"});
     }
     if(base64){
-        const base64 = buffer.toString('base64');
+        const base64 = pdf.toString('base64');
         return res.send(base64);
     }
     res.set({ 'Content-Type': 'application/pdf', 'Content-Length': pdf.length })
