@@ -42,7 +42,7 @@ async function setImageCache(url){
 async function getImgBase64(url){
     try{
         let image = await axios.get(url, {responseType: 'arraybuffer'});
-        return await resizeImage(Buffer.from(image.data).toString('base64'));
+        return (await resizeImage(Buffer.from(image.data))).toString('base64');
     } catch (e){
         console.log(e);
         return null;
