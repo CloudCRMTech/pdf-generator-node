@@ -33,7 +33,7 @@ module.exports = new class BrowserService {
     await page.goto(url, { waitUntil: 'networkidle0' });
     await page
       .waitForSelector(waitForSelector, {visible: true, timeout: '3000'});
-    return await page.pdf({
+    const res = await page.pdf({
       format: 'A4',
       printBackground: true,
       headerTemplate: this.headerTemplateAdjust + (header ?? ''),
@@ -43,5 +43,7 @@ module.exports = new class BrowserService {
         top: '0px'
       }
     });
+    page.close();
+    return res;
   }
 };
