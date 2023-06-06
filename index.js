@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer')
 const md5 = require('md5');
+const sharp = require('sharp');
 
 const fs = require("fs")
 const express = require("express");
@@ -41,12 +42,26 @@ async function setImageCache(url){
 async function getImgBase64(url){
     try{
         let image = await axios.get(url, {responseType: 'arraybuffer'});
-        return Buffer.from(image.data).toString('base64');
+        return await resizeImage(Buffer.from(image.data).toString('base64'));
     } catch (e){
         console.log(e);
         return null;
     }
+
 }
+
+async function resizeImage(buffer){
+    try{
+        return await sharp(buffer)
+        .resize(200)
+        .toBuffer()
+    } catch (e){
+        console.log(e);
+        return buffer;
+    }
+}
+
+
 async function replaceImagesFromHtml(html){
     let link = html.match(/src=["']([^"']*)["']/)[1];
     const base64Image = await getImageCache(link);
