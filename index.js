@@ -15,6 +15,7 @@ async function printPDF(url, header = null, footer = null) {
     try{
         return await browserService.getPDF(url, header, footer, '.body');
     } catch (e){
+        print(e);
         return null;
     }
 }
@@ -42,6 +43,7 @@ async function getImgBase64(url){
         let image = await axios.get(url, {responseType: 'arraybuffer'});
         return Buffer.from(image.data).toString('base64');
     } catch (e){
+        print(e);
         return null;
     }
 }
