@@ -56,8 +56,8 @@ async function replaceImagesFromHtml(html){
 app.post("/", async (req, res) => {
     let {header = '', footer = '', url = null, base64 = true} = req.body;
     if(!url) return res.status(422).json({message: "URL è necessário"});
-    header = replaceImagesFromHtml(header);
-    footer = replaceImagesFromHtml(footer);
+    header = await replaceImagesFromHtml(header);
+    footer = await replaceImagesFromHtml(footer);
     const pdf = await printPDF(url, header, footer);
     if(!pdf) {
         return res.status(500).json({error: "Servidor nativo caui"});
