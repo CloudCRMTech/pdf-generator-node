@@ -86,7 +86,8 @@ app.post("/", async (req, res) => {
         return res.send(base64);
     }
     res.set({ 'Content-Type': 'application/pdf', 'Content-Length': pdf.length })
-    res.send(pdf)
+    res.write(pdf);
+    res.end();
 });
 
 
