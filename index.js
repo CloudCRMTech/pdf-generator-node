@@ -63,9 +63,13 @@ async function resizeImage(buffer){
 
 
 async function replaceImagesFromHtml(html){
-    let link = html.match(/src=["']([^"']*)["']/)[1];
-    const base64Image = await getImageCache(link);
-    return html.replace(/src=["'][^"']*["']/, `src="data:image/png;base64, ${base64Image}"`);
+    try {
+        let link = html.match(/src=["']([^"']*)["']/)[1];
+        const base64Image = await getImageCache(link);
+        return html.replace(/src=["'][^"']*["']/, `src="data:image/png;base64, ${base64Image}"`);
+    } catch (e){
+        return html;
+    }
 }
 
 app.post("/", async (req, res) => {
