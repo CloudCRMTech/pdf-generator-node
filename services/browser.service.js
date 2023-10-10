@@ -32,7 +32,7 @@ module.exports = new class BrowserService {
     page.setDefaultNavigationTimeout(10000);
     await page.goto(url, { waitUntil: 'networkidle0' });
     await page
-      .waitForSelector(waitForSelector, {visible: true, timeout: '3000'});
+      .waitForSelector(waitForSelector, {visible: true, timeout: '5000'});
     const res = await page.pdf({
       format: 'A4',
       printBackground: true,
