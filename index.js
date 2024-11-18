@@ -77,6 +77,7 @@ app.post("/", async (req, res) => {
     if(!url) return res.status(422).json({message: "URL è necessário"});
     header = await replaceImagesFromHtml(header);
     footer = await replaceImagesFromHtml(footer);
+    console.log("vai gerar");
     const pdf = await printPDF(url, header, footer);
     if(!pdf) {
         return res.status(500).json({error: "Servidor nativo caui"});
@@ -90,5 +91,8 @@ app.post("/", async (req, res) => {
     res.end();
 });
 
+app.get("/health", async (req, res) => {
+    res.send("ok");
+});
 
 app.listen(3001, () => console.log("running"));
